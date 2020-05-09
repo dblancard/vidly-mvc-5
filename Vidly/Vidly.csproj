@@ -16,10 +16,12 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +41,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -106,12 +114,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -166,13 +168,59 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005080208223_InitialCreate.cs" />
+    <Compile Include="Migrations\202005080208223_InitialCreate.Designer.cs">
+      <DependentUpon>202005080208223_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080220260_InitialModel.cs" />
+    <Compile Include="Migrations\202005080220260_InitialModel.Designer.cs">
+      <DependentUpon>202005080220260_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080233008_AddIsSubscribedToCustomer.cs" />
+    <Compile Include="Migrations\202005080233008_AddIsSubscribedToCustomer.Designer.cs">
+      <DependentUpon>202005080233008_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080237057_AddMembershipType.cs" />
+    <Compile Include="Migrations\202005080237057_AddMembershipType.Designer.cs">
+      <DependentUpon>202005080237057_AddMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080238337_PopulateMembershipTypes.cs" />
+    <Compile Include="Migrations\202005080238337_PopulateMembershipTypes.Designer.cs">
+      <DependentUpon>202005080238337_PopulateMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080245269_ApplyAnnotationsToCustomerName.cs" />
+    <Compile Include="Migrations\202005080245269_ApplyAnnotationsToCustomerName.Designer.cs">
+      <DependentUpon>202005080245269_ApplyAnnotationsToCustomerName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080307299_AddMembershipTypeName.cs" />
+    <Compile Include="Migrations\202005080307299_AddMembershipTypeName.Designer.cs">
+      <DependentUpon>202005080307299_AddMembershipTypeName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080315361_AddBirthdateToCustomer.cs" />
+    <Compile Include="Migrations\202005080315361_AddBirthdateToCustomer.Designer.cs">
+      <DependentUpon>202005080315361_AddBirthdateToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080357188_AddBirthdateToCustomer2.cs" />
+    <Compile Include="Migrations\202005080357188_AddBirthdateToCustomer2.Designer.cs">
+      <DependentUpon>202005080357188_AddBirthdateToCustomer2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080407596_UpdateMoviesModel.cs" />
+    <Compile Include="Migrations\202005080407596_UpdateMoviesModel.Designer.cs">
+      <DependentUpon>202005080407596_UpdateMoviesModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Min19YearsIfAMember.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\MovieFormViewModel.cs" />
+    <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +284,9 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <None Include="Views\Customers\Details.cshtml" />
     <None Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Customers\CustomerForm.cshtml" />
+    <Content Include="Views\Movies\MovieForm.cshtml" />
     <None Include="Views\Movies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +298,38 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202005080208223_InitialCreate.resx">
+      <DependentUpon>202005080208223_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080220260_InitialModel.resx">
+      <DependentUpon>202005080220260_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080233008_AddIsSubscribedToCustomer.resx">
+      <DependentUpon>202005080233008_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080237057_AddMembershipType.resx">
+      <DependentUpon>202005080237057_AddMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080238337_PopulateMembershipTypes.resx">
+      <DependentUpon>202005080238337_PopulateMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080245269_ApplyAnnotationsToCustomerName.resx">
+      <DependentUpon>202005080245269_ApplyAnnotationsToCustomerName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080307299_AddMembershipTypeName.resx">
+      <DependentUpon>202005080307299_AddMembershipTypeName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080315361_AddBirthdateToCustomer.resx">
+      <DependentUpon>202005080315361_AddBirthdateToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080357188_AddBirthdateToCustomer2.resx">
+      <DependentUpon>202005080357188_AddBirthdateToCustomer2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080407596_UpdateMoviesModel.resx">
+      <DependentUpon>202005080407596_UpdateMoviesModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
